@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Profile Fetcher</title>
+    <style>
+        
+        .pagination{
+            display: flex;
+            background-color: bisque;
+           
+        }
+        .page-item{
+            text-decoration: none;
+            display: inline;
+            justify-content: start;
+            padding: 5px;
+            margin: 5px;
+            border: 2px solid lightblue;
+        }
+        .page-link{
+            text-decoration: none;
+
+        }
+        button{
+            font-style: italic;
+            color:aliceblue;
+            background-color: brown;
+            font-size: large;
+
+        }
+        button:hover{
+            background-color: rgba(200, 238, 134, 0.8);
+            color: azure;
+        }
+        .page-item:hover{
+            background-color: aquamarine;
+            width: 17px;
+            height: 22px;
+        }
+    </style>
+</head>
+<body>
+    
+       <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    
+    <li class="page-item" onclick="change(1)"><a class="page-link" href="#" >1</a></li>
+    <li class="page-item" onclick="change(2)"><a class="page-link" href="#">2</a></li>
+    <li class="page-item" onclick="change(3)"><a class="page-link" href="#">3</a></li>
+   
+  </ul>
+</nav>
+      
+    <button onclick="fetchData()" style="text-align: center;">Fetch Profile</button>
+    <div id="parentt"></div>
+
+
+    <script>
+        var url = `https://dummyjson.com/quotes`;
+        let parent=document.getElementById("parentt");
+        let currentpage = 1;
+        let quotesdata=[];
+        function fetchData(){
+            
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                quotesdata=data.quotes;
+                displayQuotes(currentpage);
+            })
+            .catch(error => {console.log( error);
+                
+            });
+        }
+            function displayQuotes(pages){
+                parent.innerHTML = "";
+                let itemsinpage=10;
+                let start = (pages-1)*itemsinpage;
+                let end = start + itemsinpage;
+
+                let pageData = quotesdata.slice(start,end);
+
+
+                pageData.forEach((obj)=> {
+                   
+                
+                    let divEle=document.createElement("div");
+                    divEle.classList.add("quote-block"); // Add a class for styling
+                divEle.style.backgroundColor = getRandomColor(); 
+                    divEle.innerHTML=`<div>ID : ${obj.id} - Author : ${obj.author}</div>
+                    <p>"${obj.quote}"</p> <hr>` 
+                    parent.appendChild(divEle);
+                });
+            
+            }
+        function change(page){
+            currentpage=page;
+            displayQuotes(currentpage);
+        }
+
+         // Function to generate a random color
+         function getRandomColor() {
+            let letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
