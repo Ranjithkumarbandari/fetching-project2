@@ -1,0 +1,34 @@
+ 
+        .pagination{
+            display: flex;
+            background-color: bisque;
+           
+        }
+        .page-item{
+            text-decoration: none;
+            display: inline;
+            justify-content: start;
+            padding: 5px;
+            margin: 5px;
+            border: 2px solid lightblue;
+        }
+        .page-link{
+            text-decoration: none;
+
+        }
+        button{
+            font-style: italic;
+            color:aliceblue;
+            background-color: brown;
+            font-size: large;
+
+        }
+        button:hover{
+            background-color: rgba(200, 238, 134, 0.8);
+            color: azure;
+        }
+        .page-item:hover{
+            background-color: aquamarine;
+            width: 17px;
+            height: 22px;
+        }
